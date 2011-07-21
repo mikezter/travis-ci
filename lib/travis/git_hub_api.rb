@@ -34,6 +34,10 @@ module Travis
       def repository_list_for_user(login)
         Octokit.repositories(login)
       end
+
+      def repository_watchlist_for_user(login)
+        Octokit.watched(login)
+      end
     end
 
   end

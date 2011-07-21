@@ -78,7 +78,16 @@ class Repository < ActiveRecord::Base
         end
       end
     end
+
+    def watched_repos_for_user(user)
+      github_repos = Travis::GitHubApi.repository_watchlist_for_user(user.login)
+      github_repos.collect do |repo|
+        where(:name => repo.name, :owner_name => repo.owner).first
+      end.compact
+    end
   end
+
+
 
   def human_status(branches="")
     return 'unknown' unless last_finished_build(branches)

@@ -24,6 +24,8 @@ class RepositoriesController < ApplicationController
     def repositories
       repos = if params[:owner_name]
           Repository.where(:owner_name => params[:owner_name]).timeline
+        elsif params[:watched] && current_user
+          Repository.watched_repos_for_user(current_user)
         else
           Repository.timeline.recent
         end

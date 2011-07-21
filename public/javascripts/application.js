@@ -69,6 +69,27 @@ $(document).ready(function() {
     });
   }, 100));
 
+  $('#tab_watched').click(function(){
+    $.ajax({
+      type: "GET",
+      url: "/repositories",
+      data: "watched=1",
+      success: function(repositories) {
+        Travis.app.repositories.refresh(repositories);
+      }
+    });
+  });
+
+  $('#tab_recent').click(function(){
+    $.ajax({
+      type: "GET",
+      url: "/repositories",
+      success: function(repositories) {
+        Travis.app.repositories.refresh(repositories);
+      }
+    });
+  });
+
   function toggle_slider() {
     $("#right").toggleClass('minimized');
     $('#main').toggleClass('large');
